@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="{:url('admin/index/index')}" method="post">
+    <div>
+        <img src="{:url('admin/Comm/captcha')}"   id="verifycode_img" title="点击更换" alt="captcha" onclick="this.src='{:url('admin/Comm/captcha')}?seed='+Math.random()"/>
+    </div>
+
+
+    <input type="text" name="captcha" value=""/>
+    <input type="submit" value="submit">
+</form>
+</body>
+</html>

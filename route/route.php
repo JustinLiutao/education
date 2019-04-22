@@ -9,12 +9,13 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-Route::get('think', function () {
-    return 'hello,ThinkPHP5!';
+
+Route::group('/admin', function () {
+    Route::rule('/','admin/Index/index');
+    Route::rule('/captcha','admin/Comm/captcha');
 });
 
-Route::get('hello/:name', 'index/hello');
+Route::group('/',function(){
+    Route::rule('/','index/Index/index');
+});
 
-return [
-
-];
