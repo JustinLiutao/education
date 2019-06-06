@@ -5,11 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-<form action="{:url('admin/index/index')}" method="post">
+<form action="{:url('admin/index/captcha')}" method="post">
     <div>
         <img src="{:url('admin/Comm/captcha')}"   id="verifycode_img" title="点击更换" alt="captcha" onclick="this.src='{:url('admin/Comm/captcha')}?seed='+Math.random()"/>
     </div>
-
+    {:lang('I am iron man')}
 
     <input type="text" name="captcha" value=""/>
     <input type="submit" value="submit">

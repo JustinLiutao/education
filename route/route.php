@@ -11,8 +11,11 @@
 
 
 Route::group('/admin', function () {
-    Route::rule('/','admin/Index/index');
-    Route::rule('/captcha','admin/Comm/captcha');
+    Route::get('/captcha','admin/Index/captcha'); //验证码表单
+    Route::get('/code','admin/Comm/captcha'); //生成验证码
+    Route::get('/redis','admin/Index/redis'); //Redis
+    Route::get('/querylist','admin/Index/querylist'); //queryList爬虫
+    Route::get('/cache','admin/Index/cache'); //数据库缓存
 });
 
 Route::group('/',function(){
