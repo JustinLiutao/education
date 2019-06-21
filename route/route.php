@@ -16,6 +16,17 @@ Route::group('/admin', function () {
     Route::get('/redis','admin/Index/redis'); //Redis
     Route::get('/querylist','admin/Index/querylist'); //queryList爬虫
     Route::get('/cache','admin/Index/cache'); //数据库缓存
+
+});
+
+
+//【ElasticSearch】
+Route::group('/es', function() {
+    Route::get('/add','admin/Es/addDoc'); //ElasticSearch新增创建文档
+    Route::get('/get','admin/Es/getDoc'); //ElasticSearch获取单条文档
+    Route::get('/delete','admin/Es/delDoc'); //ElasticSearch删除单条文档
+    Route::get('/search','admin/Es/searchDoc'); //ElasticSearch高级查询
+    Route::get('/update','admin/Es/updateDoc'); //ElasticSearch高级查询
 });
 
 Route::group('/',function(){
