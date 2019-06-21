@@ -10,7 +10,7 @@ use QL\QueryList;
 use think\Db;
 use think\Facade\Cache;
 
-class Index extends Controller
+class IndexController extends Controller
 {
 
     /**

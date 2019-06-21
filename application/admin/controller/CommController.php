@@ -12,7 +12,7 @@ use think\Controller;
 use think\captcha\Captcha;
 
 
-class Comm extends Controller
+class CommController extends Controller
 {
 
     //生成验证码
