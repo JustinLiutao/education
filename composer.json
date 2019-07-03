@@ -20,7 +20,8 @@
         "topthink/framework": "5.1.*",
         "topthink/think-captcha": "^2.0",
         "jaeger/querylist": "^4.1",
-        "elasticsearch/elasticsearch": "^6.7"
+        "elasticsearch/elasticsearch": "^6.7",
+        "lcobucci/jwt": "^3.3"
     },
     "autoload": {
         "psr-4": {

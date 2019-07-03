@@ -81,13 +81,30 @@ class IndexController extends Controller
 //            ->select();
 //        dump(cache::get('test'));
 
-
         cache::set('uu','xxx');
-
 //        $model = new UserModel();
 //        $res = $model->cache('user',60)->select();
 //        dump($res);
         dump(cache('uu'));
     }
+
+    public function jwt() {
+        echo 1;
+    }
+
+    /**
+     * description: 单例模式实例
+     */
+    public function singlePattern()
+    {
+        $singleObj1 = PatternController::getObj();
+        $singleObj2 = PatternController::getObj();
+        if($singleObj1 === $singleObj2){
+            echo 1;
+        }else{
+            echo 2;
+        }
+    }
+
 
 }
