@@ -9,6 +9,10 @@ use think\cache\driver\Redis;
 use QL\QueryList;
 use think\Db;
 use think\Facade\Cache;
+use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\Signer\Hmac\Sha256;
+use Lcobucci\JWT\Parser;
+
 
 class IndexController extends Controller
 {
@@ -88,9 +92,63 @@ class IndexController extends Controller
         dump(cache('uu'));
     }
 
-    public function jwt() {
-        echo 1;
+    /**
+     *  JST 生成token
+     */
+    public function jwt()
+    {
+        $builder = new Builder();
+        $signer = new Sha256();
+        $secret = "suspn@)!*";
+
+        //设置header和payload，以下的字段都可以自定义
+        $builder->setIssuer("lzx") //发布者
+            ->setAudience("lt") //接收者
+            ->setId("abc", true) //对当前token设置的标识
+            ->setIssuedAt(time()) //token创建时间
+            ->setExpiration(time() + 60) //过期时间
+            ->setNotBefore(time() + 1) //当前时间在这个时间前，token不能使用
+            ->set('uid', 30061); //自定义数据
+
+        //设置签名
+        $builder->sign($signer, $secret);
+
+        //获取加密后的token，转为字符串
+        $token = (string)$builder->getToken();
+        echo $token;
     }
+
+    /**
+     *  JWT 验证token
+     */
+    public function checkJwt() {
+        $signer  = new Sha256();
+        $secret = "suspn@)!*";
+        //获取token
+        $token = isset($_SERVER['HTTP_TOKEN']) ? $_SERVER['HTTP_TOKEN'] : '';
+        if (!$token) {
+            exit('Invalid token');
+        }
+
+        try {
+            //解析token
+            $parse = (new Parser())->parse($token);
+            //验证token合法性
+            if (!$parse->verify($signer, $secret)) {
+                exit('Token fuck');
+            }
+            //验证是否已经过期
+            if ($parse->isExpired()) {
+                exit('Already expired');
+            }
+            //获取数据
+            var_dump($parse->getClaims());
+        } catch (Exception $e) {
+            //var_dump($e->getMessage());
+            exit('Fuck Bitch');
+        }
+    }
+
 
     /**
      * description: 单例模式实例

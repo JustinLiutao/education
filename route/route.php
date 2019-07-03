@@ -15,7 +15,8 @@ Route::group('/admin', function () {
     Route::get('/redis','admin/Index/redis'); //Redis
     Route::get('/querylist','admin/Index/querylist'); //queryList爬虫
     Route::get('/cache','admin/Index/cache'); //数据库缓存
-    Route::get('/jwt', 'admin/Index/jwt'); //JWT
+    Route::get('/jwt', 'admin/Index/jwt'); //JWT 生成token
+    Route::get('/checkJwt', 'admin/Index/checkJwt'); //JWT 验证token
 });
 
 //【ElasticSearch】
