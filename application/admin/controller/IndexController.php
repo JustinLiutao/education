@@ -30,7 +30,7 @@ class IndexController extends Controller
             $comm = new Comm();
             if (!$comm->checkVerify($verify)) {
                 $this->error('失败');
-            }else{
+            } else {
                 $this->success('成功');
             }
         }
@@ -53,18 +53,18 @@ class IndexController extends Controller
      * QueryList爬虫
      * @param string $url
      */
-    public function querylist($url='https://www.baidu.com')
+    public function querylist($url = 'https://www.baidu.com')
     {
         $html = file_get_contents($url);
         //采集规则
         $rules = [
             //采集img标签的src属性，也就是采集页面中的图片链接
-            'name1' => ['img','src'],
+            'name1' => ['img', 'src'],
             //采集class为content的div的纯文本内容，
             //并移除内容中的a标签内容，移除id为footer标签的内容，保留img标签
-            'name2' => ['div.content','text','-a -#footer img'],
+            'name2' => ['div.content', 'text', '-a -#footer img'],
             //采集第二个div的html内容，并在内容中追加了一些自定义内容
-            'name3' => ['div:eq(1)','html','',function($content){
+            'name3' => ['div:eq(1)', 'html', '', function ($content) {
                 $content += 'some str...';
                 return $content;
             }]
@@ -79,13 +79,14 @@ class IndexController extends Controller
     /**
      * cache
      */
-    public function cache($id){
+    public function cache($id)
+    {
 //        $res = Db::name('ad_type')
 //            ->cache('test',60)
 //            ->select();
 //        dump(cache::get('test'));
 
-        cache::set('uu','xxx');
+        cache::set('uu', 'xxx');
 //        $model = new UserModel();
 //        $res = $model->cache('user',60)->select();
 //        dump($res);
@@ -102,13 +103,13 @@ class IndexController extends Controller
         $secret = "suspn@)!*";
 
         //设置header和payload，以下的字段都可以自定义
-        $builder->setIssuer("lzx") //发布者
-            ->setAudience("lt") //接收者
-            ->setId("abc", true) //对当前token设置的标识
-            ->setIssuedAt(time()) //token创建时间
-            ->setExpiration(time() + 60) //过期时间
-            ->setNotBefore(time() + 1) //当前时间在这个时间前，token不能使用
-            ->set('uid', 30061); //自定义数据
+        $builder->setIssuer("lzx")//发布者
+        ->setAudience("lt")//接收者
+        ->setId("abc", true)//对当前token设置的标识
+        ->setIssuedAt(time())//token创建时间
+        ->setExpiration(time() + 60)//过期时间
+        ->setNotBefore(time() + 1)//当前时间在这个时间前，token不能使用
+        ->set('uid', 30061); //自定义数据
 
         //设置签名
         $builder->sign($signer, $secret);
@@ -121,8 +122,9 @@ class IndexController extends Controller
     /**
      *  JWT 验证token
      */
-    public function checkJwt() {
-        $signer  = new Sha256();
+    public function checkJwt()
+    {
+        $signer = new Sha256();
         $secret = "suspn@)!*";
         //获取token
         $token = isset($_SERVER['HTTP_TOKEN']) ? $_SERVER['HTTP_TOKEN'] : '';
@@ -157,11 +159,45 @@ class IndexController extends Controller
     {
         $singleObj1 = PatternController::getObj();
         $singleObj2 = PatternController::getObj();
-        if($singleObj1 === $singleObj2){
+        if ($singleObj1 === $singleObj2) {
             echo 1;
-        }else{
+        } else {
             echo 2;
         }
+    }
+
+    /**
+     * description: 工厂模式实例
+     */
+    public function factoryPattern()
+    {
+        $rectangle = PatternController::create('rectangle', [10, 30]);
+        echo '长方形的面积是' . $rectangle->area();
+        echo '<hr>';
+        $triangle = PatternController::create('triangle', [20, 50]);
+        echo '三角形的面积是' . $triangle->area();
+    }
+
+    /**
+     * description: 观察者模式实例
+     */
+    public function observerPattern()
+    {
+        $pattern = new PatternController();
+        $pattern->register(new Dog());
+        $pattern->register(new Cat());
+        $pattern->notify();
+    }
+
+
+    /**
+     *  依赖注入 & 中间件
+     */
+    public function container(Request $request, UserModel $user)
+    {
+        echo $request->middleware;
+        $res = $user->select();
+        dump($res);
     }
 
 
