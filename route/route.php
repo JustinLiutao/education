@@ -9,6 +9,7 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
+//【杂项】
 Route::group('/admin', function () {
     Route::get('/captcha', 'admin/Index/captcha'); //验证码表单
     Route::get('/code', 'admin/Comm/captcha'); //生成验证码
@@ -40,6 +41,11 @@ Route::group('/pattern', function () {
     Route::get('/single', 'admin/Index/singlePattern'); //单例模式
     Route::get('/factory', 'admin/Index/factoryPattern'); //工厂模式
     Route::get('/observer', 'admin/Index/observerPattern'); //观察者模式
+});
+
+//【邮件】
+Route::group('email', function(){
+    Route::get('/send', 'admin/Email/send'); //发送邮件
 
 });
 
